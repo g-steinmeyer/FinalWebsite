@@ -1,0 +1,179 @@
+@import 'colors.css';
+
+.neo-flex {
+	display:flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.date-selector {
+	text-align: center;
+}
+
+.date-input {
+	padding: 8px;
+	margin-top: 5px;
+    border: 2px solid var(--text-dark);
+    border-radius: var(--radius);
+    font-family: inherit;
+}
+
+.date-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(123, 211, 234, 0.2);
+}
+
+.today-btn {
+    padding: 12px 20px;
+    background: var(--text-dark);
+    color: white;
+	text-shadow: 0px 0px 1.5px var(--text-dark);
+    border: none;
+    border-radius: var(--radius);
+    font-weight: bold;
+    /* display: flex; */
+    align-items: center;
+    gap: 8px;
+}
+
+.today-btn:hover {
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+	transition: all ease .2s;
+	background: rgba(13, 4, 56, 0.668);
+}
+/* Unit Toggle */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+	font-weight: normal;
+}
+.unit-label.active {
+    font-weight: bolder;
+}
+
+.switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--text-dark);
+    transition: var(--transition);
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: var(--transition);
+    border-radius: 50%;
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+
+/* Actual visualizer bits below */
+
+#orbit-canvas {
+	aspect-ratio: 1 / 1;
+	width: min(100%, 75dvh);
+	background: #001b39;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0;
+	position: relative;
+	height: auto;
+	overflow: hidden;
+	border-radius:0 0 8px 8px;
+	/* border-radius: 10%; */
+	margin-bottom: 5px;
+	
+}
+
+#earth-pic {
+	width: min(20%, 14dvh);
+	aspect-ratio: 1/1;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.asteroid {
+	position: absolute;
+}
+
+.asteroid:hover {
+	transform: translate(0, -2px);
+	transition: all ease .3s;
+	cursor: pointer;
+	
+}
+.selected-asteroid {
+	filter: sepia(100%) hue-rotate(90deg) saturate(200%);
+}
+.time-slider {
+	margin-top: 1rem;
+	justify-self: center;
+	width: min(100%, 75dvh);
+    background: #001b39;
+    border-radius: 8px 8px 0px 0px;
+	padding: 1rem 1rem 0 1rem;
+}
+
+.time-slider label {
+    display: block;
+    font-weight: bold;
+    color: white;
+}
+
+#time-slider {
+	-webkit-appearance: none; 
+    width: 100%;
+    margin: 10px 0;
+    height: 8px;
+    border-radius: 4px;
+	background: var(--pastel-blue);
+}
+
+#time-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px; 
+	height: 20px;
+	border-radius: 50%;
+	border: 2px solid white;
+	background: var(--pastel-blue); 
+	cursor: pointer;
+  }
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: white;
+}
+
+

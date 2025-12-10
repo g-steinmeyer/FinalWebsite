@@ -1,0 +1,14 @@
+:root {
+    --pastel-blue: #99b8ff;
+    --pastel-green: #A1EEBD;
+    --pastel-yellow: #F6F7C4;
+    --pastel-pink: #812222;
+    --pastel-purple: #b67ce9;
+    --pastel-orange: #FFB26B;
+    --text-dark: #001b39;
+    --text-light: #666677;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+    --radius: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

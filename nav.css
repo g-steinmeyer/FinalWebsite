@@ -1,0 +1,60 @@
+@import 'colors.css';
+
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-30px, -30px) rotate(360deg); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+header {
+	display: flex;
+	box-shadow: 0px 2px 12px rgba(21, 28, 100, 0.3);
+	justify-content: space-between;
+	padding: 1.2rem;
+	align-items: center;
+	background: linear-gradient(135deg, #001b39 0%, #56095b 100%);
+    
+	color: white;
+	text-shadow: 0px 0px 3px var(--text-dark);
+	text-align: center;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-btn:hover {
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+	transition: all ease .2s;
+}
+
+.nav-btn.active {
+    color: #4ca8bf;
+    box-shadow: 0 4px 12px rgba(123, 211, 234, 0.3);
+}
+
+.nav-btn i {
+    font-size: 1.1rem;
+}

@@ -1,0 +1,226 @@
+
+/* Filter & Sort */
+.filter-controls {
+    display: flex;
+	gap: 10px;
+	justify-content: left;
+	align-items: center;
+	padding: 1rem 0 0rem 0;
+}
+
+.filter-controls select {
+    
+    border: none;
+	font-weight: bolder;
+	padding: .5rem;
+    font-family: inherit;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.asteroid-list {
+    background: white;
+    padding: 25px;
+	margin-top: 1rem;
+	border-top: 3px solid var(--text-dark);
+	padding-top: 2rem;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.list-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.label {
+    font-weight: bold;
+}
+
+
+.comparison-btn {
+    background: var(--text-dark);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bolder;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow);
+}
+
+.comparison-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Comparison Table */
+.comparison-table {
+    background: var(--text-dark);
+    padding: 25px;
+    border-radius: var(--radius);
+    margin-bottom: 25px;
+    animation: slideDown 0.3s ease-out;
+	color: white;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.comparison-table.hidden {
+    display: none;
+}
+
+.comparison-table h3 {
+    margin-bottom: 20px;
+	color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comparison-table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+	border: 1px solid var(--pastel-blue);
+}
+
+.comparison-table th, .comparison-table td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid var(--pastel-blue);
+}
+
+.comparison-table th {
+    font-weight: bolder;
+	color:white;
+}
+
+
+.exit-compare-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: var(--pastel-pink);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.exit-compare-btn:hover {
+    background: #ff7a7a;
+    transform: translateY(-2px);
+}
+
+/* Asteroid Cards */
+.asteroid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.asteroid-card {
+    background: linear-gradient(135deg, #001b39 0%, #56095b 100%);
+    border-radius: var(--radius);
+    padding: 20px;
+    cursor: pointer;
+    transition: all ease .3s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+	border: 5px solid transparent;
+	color: white;
+}
+
+.asteroid-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--pastel-blue);
+}
+
+.asteroid-card.selected {
+	border: 5px solid  var(--pastel-purple);
+	background: linear-gradient(135deg, #56095b 0%, #56095b 100%);
+    
+}
+
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.card-header h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.bookmark-btn, .compare-select-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bookmark-btn {
+    background: var(--pastel-green);
+    color: light;
+}
+
+.bookmark-btn:hover:not(:disabled) {
+    background: var(--pastel-blue);
+    color: white;
+}
+
+.bookmark-btn.bookmarked {
+    background: var(--pastel-blue);
+    color: white;
+}
+
+.compare-select-btn {
+    background: var(--pastel-green);
+    color: var(--text-dark);
+}
+
+.compare-select-btn.selected {
+    background: var(--pastel-blue);
+    color: white;
+}
