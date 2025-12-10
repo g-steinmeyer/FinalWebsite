@@ -538,7 +538,7 @@ function drawVisualization() {
 	const canvas = elements.orbitCanvas;
 	const time = parseFloat(elements.timeSlider.value);
 
-	canvas.innerHTML = `<img src="pictures/earth.jpg" id = "earth-pic" alt="earth">
+	canvas.innerHTML = `<img src="earth.jpg" id = "earth-pic" alt="earth">
 	`;
 
 	const asteroids = state.asteroids;
@@ -558,7 +558,7 @@ function drawVisualization() {
 		let y = (Math.sin(angle) * drawDistance)/2 * 100;
 		
 		const newAsteroid = document.createElement("img");
-		newAsteroid.src = "pictures/asteroid.png";
+		newAsteroid.src = "asteroid.png";
 		newAsteroid.classList.add('asteroid');
 		newAsteroid.style.width = size + "%";
 		newAsteroid.style.height = size + "%";
