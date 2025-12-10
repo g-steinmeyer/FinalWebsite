@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Asteroid Alley 🚀</title>
+	<meta name="description"
+		content="A cute, educational asteroid tracker using NASA's API to show near-Earth asteroids with interactive visualizations">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@300;400;600;700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/nav.css">
+	<link rel="stylesheet" href="styles/visualizer.css">
+	<link rel="stylesheet" href="styles/cards.css">
+	<link rel="icon"
+		href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+</head>
+
+<body>
+	<div id="app">
+		<!-- Header/Navigation -->
+		<header class="header">
+			<h1><i class="fas fa-rocket"></i> Asteroid Alley</h1>
+			<nav class="nav">
+				<button data-page="dashboard" class="nav-btn active">
+					<i class="fas fa-globe-americas"></i> Asteroid Tracker
+				</button>
+				<button data-page="learn" class="nav-btn">
+					<i class="fas fa-book"></i> Learn
+				</button>
+				<button data-page="gallery" class="nav-btn">
+					<i class="fas fa-images"></i> Gallery
+				</button>
+				<button data-page="bookmarks" class="nav-btn">
+					<i class="fas fa-star"></i> Bookmarks <span id="bookmark-count">0</span>
+				</button>
+			</nav>
+		</header>
+
+		<!-- Main Content Area -->
+		<main class="main-content">
+			<div id = "dashboard-page" class = 'page active'>
+				<div class="visualizer">
+					<div class="neo-flex">
+						<h2><i class="fas fa-satellite"></i> Near Earth Objects (NEO)</h2>
+						<div class="toggle-switch">
+							<span class="unit-label imperial">Imperial</span>
+							<label class="switch">
+								<input type="checkbox" id="unit-toggle" checked>
+								<span class="slider"></span>
+							</label>
+							<span class="unit-label metric active">Metric</span>
+						</div>
+					</div>
+
+					<div class="date-selector">
+						<!-- Date Picker -->
+						<p>Select any date from the past or future 7 days to see NEOs</p>
+						<div class="date-inputs">
+							<input type="date" id="date-input" class="date-input">
+							<button id="today-btn" class="today-btn"><i class="fas fa-sync-alt"></i> Today</button>
+						</div>
+					</div>
+
+					<div class="visualizer-container">
+						<div class="time-slider">
+							<label>Time: <span id="time-scale-value">12:00</span></label>
+							<input type="range" id="time-slider" min="0" max="1439" value="720">
+							<div class="slider-labels">
+								<span>00:00</span>
+								<span>23:59</span>
+							</div>
+						</div>
+						<div id="orbit-canvas">
+							<img src="pictures/earth.jpg" id="earth-pic" alt="earth">
+						</div>
+						<p class="scale-note">
+							<i class="fas fa-info-circle"></i> Note: Asteroids are shown to scale with Earth. Distances
+							are
+							compressed for visualization.
+						</p>
+					</div>
+				</div>
+
+				<!-- Asteroid List -->
+				<div class="asteroid-list">
+					<div class="list-header">
+						<h2><i class="fas fa-list"></i> Nearby Asteroids (<span id="asteroid-count">0</span>)</h2>
+						<button id="comparison-btn" class="comparison-btn">
+							<i class="fas fa-balance-scale"></i> Compare Asteroids
+						</button>
+					</div>
+					<div class="filter-sort">
+						<div class="filter-controls">
+							<h3>Sort by:</h3>
+							<select id="sort-select">
+								<option value="distance">Closest First</option>
+								<option value="size">Largest First</option>
+								<option value="speed">Fastest First</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- Comparison Table (hidden by default) -->
+					<div id="comparison-table" class="comparison-table hidden">
+						<h3><i class="fas fa-columns"></i> Side-by-Side Comparison</h3>
+						<table id="comparison-data">
+							<thead>
+								<tr>
+									<th>Property</th>
+									<th id="compare-name-1">Asteroid 1</th>
+									<th id="compare-name-2">Asteroid 2</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Diameter</td>
+									<td id="compare-diameter-1">-</td>
+									<td id="compare-diameter-2">-</td>
+								</tr>
+								<tr>
+									<td>Speed</td>
+									<td id="compare-speed-1">-</td>
+									<td id="compare-speed-2">-</td>
+								</tr>
+								<tr>
+									<td>Closest Distance</td>
+									<td id="compare-distance-1">-</td>
+									<td id="compare-distance-2">-</td>
+								</tr>
+								<tr>
+									<td>Status</td>
+									<td id="compare-status-1">-</td>
+									<td id="compare-status-2">-</td>
+								</tr>
+							</tbody>
+						</table>
+						<button id="exit-compare-btn" class="exit-compare-btn">
+							<i class="fas fa-times"></i> Exit Compare Mode
+						</button>
+					</div>
+
+					<!-- Asteroid Cards Container -->
+					<div id="asteroid-cards" class="asteroid-cards">
+						<div class="loading-message">
+							<i class="fas fa-satellite-dish fa-spin"></i> Loading asteroids from NASA...
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- Learn Page -->
+			<div id="learn-page" class="page">
+				<div class="learn">
+					<h1><i class="fas fa-graduation-cap"></i> Learn About Asteroids</h1>
+					<p class="intro">Welcome to your friendly guide to understanding space rocks! Click on any topic to
+						learn
+						more.</p>
+
+					<div class="learn-sections">
+						<!-- Sections will be populated by JavaScript -->
+					</div>
+
+					<div class="learn-resources">
+						<h3><i class="fas fa-external-link-alt"></i> Want to Learn More?</h3>
+						<ul>
+							<li><a href="https://www.nasa.gov/planetarydefense" target="_blank"
+									rel="noopener noreferrer">NASA
+									Planetary Defense</a></li>
+							<li><a href="https://cneos.jpl.nasa.gov/" target="_blank" rel="noopener noreferrer">CNEOS -
+									NASA's
+									Asteroid Tracking</a></li>
+							<li><a href="https://www.asteroidday.org/" target="_blank"
+									rel="noopener noreferrer">Asteroid Day -
+									Global Awareness</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- Gallery Page -->
+			<div id="gallery-page" class="page">
+				<div class="gallery">
+					<h1><i class="fas fa-camera"></i> Space Gallery</h1>
+					<p class="gallery-intro">Explore beautiful images from NASA's Astronomy Picture of the Day and
+						asteroid
+						missions!</p>
+
+					<div id="image-grid" class="image-grid">
+						<div class="loading-message">
+							<i class="fas fa-satellite-dish fa-spin"></i> Loading space images from NASA...
+						</div>
+					</div>
+
+					<div class="gallery-notes">
+						<h3><i class="fas fa-info-circle"></i> About These Images</h3>
+						<p>
+							These images come from NASA's Astronomy Picture of the Day (APOD) API.
+							Each day, NASA features a different image or photograph of our fascinating universe.
+							The images showcase asteroids, planets, galaxies, and other cosmic wonders!
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Bookmarks Page -->
+			<div id="bookmarks-page" class="page">
+				<div class="bookmarks">
+					<h1><i class="fas fa-star"></i> Bookmarked Asteroids</h1>
+					<div id="bookmarks-grid" class="bookmarks-grid">
+						<div class="empty-bookmarks">
+							<p><i class="far fa-star"></i> No bookmarked asteroids yet!</p>
+							<p>Go to the Asteroid Tracker and click the ☆ button to bookmark interesting asteroids.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- Footer -->
+		<footer class="footer">
+			<p><i class="fas fa-satellite"></i> Data provided by NASA's Near Earth Object Web Service API</p>
+			<p class="disclaimer">Note: Visualizations are not to scale for educational purposes</p>
+		</footer>
+	</div>
+
+	<!-- Toast Notifications -->
+	<div id="toast-container"></div>
+
+	<script src="script.js"></script>
+</body>
+
+</html>
