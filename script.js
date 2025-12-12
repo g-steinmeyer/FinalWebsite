@@ -169,6 +169,28 @@ function switchPage(page) {
 async function fetchAsteroids(date) {
 	showLoading('asteroid-cards', 'Loading asteroids from NASA...');
 
+	const canvas = elements.orbitCanvas;
+	const time = parseFloat(elements.timeSlider.value);
+
+	canvas.innerHTML = `<img src="earth.jpg" id = "earth-pic" alt="earth">
+	
+	<div class="orbit-text"></div>`;
+	const text = "Loading Asteroid Data...";
+	const orbit = document.querySelector(".orbit-text");
+	const chars = text.split("");
+	const angleStep = 360 / chars.length;
+	
+	orbit.innerHTML = chars
+	.map((char, i) =>
+		`<span style="
+			left: 50%;
+			top: 50%;
+			transform:
+				rotate(${i * angleStep}deg)
+				translate(0, -15dvh)
+		">${char}</span>`)
+		 .join("");
+
 	try {
 		const response = await fetch(
 			`${NEO_API_URL}?start_date=${date}&end_date=${date}&api_key=${NASA_API_KEY}`
@@ -185,7 +207,7 @@ async function fetchAsteroids(date) {
 		state.asteroids = asteroidsArray.map(asteroid => {
 			const date = new Date(asteroid.close_approach_data[0]?.close_approach_date_full);
 			const closeTime = (date.getHours() * 60) + date.getMinutes();
-		
+
 			return {
 				id: asteroid.id,
 				name: asteroid.name.replace(/[()]/g, ''),
@@ -205,16 +227,17 @@ async function fetchAsteroids(date) {
 		console.error('Error fetching asteroids:', error);
 		showToast(`Failed to load asteroid data: ${error.message}`, 'error');
 		elements.asteroidCards.innerHTML = `
-            <div class="error-message">
-                <i class="fas fa-exclamation-triangle"></i>
-                Failed to load asteroid data. Please try again later.
-            </div>
-        `;
+	        <div class="error-message">
+	            <i class="fas fa-exclamation-triangle"></i>
+	            Failed to load asteroid data. Please try again later.
+	        </div>
+	    `;
 	}
 }
 
 async function fetchAPODImages() {
-	showLoading('image-grid', 'Loading space images from NASA...');
+
+
 
 	try {
 		const response = await fetch(
@@ -259,7 +282,7 @@ function sortAsteroids() {
 		}
 	});
 
-	elements.asteroidCount.textContent = state.asteroids.length;
+	elements.asteroidCount.textContent = `(${state.asteroids.length})`;
 	renderAsteroidCards();
 	drawVisualization();
 }
@@ -338,11 +361,6 @@ function renderAPODImages() {
             </div>
             <div class="image-info">
                 <h3>${image.title || 'NASA Space Image'}</h3>
-                ${image.explanation ? `
-                    <p class="image-description">
-                        ${image.explanation.substring(0, 150)}...
-                    </p>
-                ` : ''}
             </div>
         </div>
     `).join('');
@@ -464,8 +482,8 @@ function updateComparisonTable() {
 	elements.compareSpeed2.textContent = formatVelocity(a2.velocity);
 	elements.compareDistance1.textContent = formatDistance(a1.distance);
 	elements.compareDistance2.textContent = formatDistance(a2.distance);
-	elements.compareStatus1.textContent = a1.isHazardous ? '⚠️ Hazardous' : '✅ Safe';
-	elements.compareStatus2.textContent = a2.isHazardous ? '⚠️ Hazardous' : '✅ Safe';
+	elements.compareStatus1.textContent = a1.closeApproachDate;
+	elements.compareStatus2.textContent = a2.closeApproachDate;
 }
 
 // Bookmark Management
@@ -544,7 +562,7 @@ function drawVisualization() {
 	const asteroids = state.asteroids;
 	const maxDiameter = Math.max(...asteroids.map(a => a.diameter), 1);
 	const maxDistance = Math.max(...asteroids.map(asteroid=>Number(asteroid.distance) + 120*Number(asteroid.velocity)), 1);
-	
+
 
 	asteroids.forEach((asteroid, index) => {
 		const rect = canvas.getBoundingClientRect(); 
@@ -556,7 +574,7 @@ function drawVisualization() {
 		const angle = (index / asteroids.length) * Math.PI * 2 + 2*Math.PI*time/1400;
 		let x = (Math.cos(angle) * drawDistance) * 50; 
 		let y = (Math.sin(angle) * drawDistance)/2 * 100;
-		
+
 		const newAsteroid = document.createElement("img");
 		newAsteroid.src = "asteroid.png";
 		newAsteroid.classList.add('asteroid');
@@ -565,7 +583,8 @@ function drawVisualization() {
 		newAsteroid.style.left = (50 + x ) + "%";
 		newAsteroid.style.top  = (50 + y ) + "%";
 		newAsteroid.id = asteroid.id;
-
+		if(state.selectedAsteroid?.id == asteroid.id) {newAsteroid.classList.add('selected-asteroid')}
+		console.log(asteroid)
 		canvas.appendChild(newAsteroid);
 
 		newAsteroid.addEventListener('click', () => {

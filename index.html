@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Asteroid Alley 🚀</title>
+	<title>Asteroid Alley </title>
 	<meta name="description"
 		content="A cute, educational asteroid tracker using NASA's API to show near-Earth asteroids with interactive visualizations">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,10 +77,10 @@
 							</div>
 						</div>
 						<div id="orbit-canvas">
-							<img src="pictures/earth.jpg" id="earth-pic" alt="earth">
+							<img src="earth.jpg" id="earth-pic" alt="earth">
 						</div>
 						<p class="scale-note">
-							<i class="fas fa-info-circle"></i> Note: Asteroids are shown to scale with Earth. Distances
+							<i class="fas fa-info-circle"></i> Note: Asteroids are not shown to scale with Earth. Distances
 							are
 							compressed for visualization.
 						</p>
@@ -90,7 +90,7 @@
 				<!-- Asteroid List -->
 				<div class="asteroid-list">
 					<div class="list-header">
-						<h2><i class="fas fa-list"></i> Nearby Asteroids (<span id="asteroid-count">0</span>)</h2>
+						<h2><i class="fas fa-list"></i> Nearby Asteroids<span id="asteroid-count">0</span></h2>
 						<button id="comparison-btn" class="comparison-btn">
 							<i class="fas fa-balance-scale"></i> Compare Asteroids
 						</button>
@@ -134,7 +134,7 @@
 									<td id="compare-distance-2">-</td>
 								</tr>
 								<tr>
-									<td>Status</td>
+									<td>Closest Approach</td>
 									<td id="compare-status-1">-</td>
 									<td id="compare-status-2">-</td>
 								</tr>
@@ -160,28 +160,12 @@
 			<div id="learn-page" class="page">
 				<div class="learn">
 					<h1><i class="fas fa-graduation-cap"></i> Learn About Asteroids</h1>
-					<p class="intro">Welcome to your friendly guide to understanding space rocks! Click on any topic to
-						learn
-						more.</p>
+					<p class="intro">Click to see more!</p>
 
 					<div class="learn-sections">
-						<!-- Sections will be populated by JavaScript -->
 					</div>
 
-					<div class="learn-resources">
-						<h3><i class="fas fa-external-link-alt"></i> Want to Learn More?</h3>
-						<ul>
-							<li><a href="https://www.nasa.gov/planetarydefense" target="_blank"
-									rel="noopener noreferrer">NASA
-									Planetary Defense</a></li>
-							<li><a href="https://cneos.jpl.nasa.gov/" target="_blank" rel="noopener noreferrer">CNEOS -
-									NASA's
-									Asteroid Tracking</a></li>
-							<li><a href="https://www.asteroidday.org/" target="_blank"
-									rel="noopener noreferrer">Asteroid Day -
-									Global Awareness</a></li>
-						</ul>
-					</div>
+					
 				</div>
 			</div>
 
@@ -189,9 +173,7 @@
 			<div id="gallery-page" class="page">
 				<div class="gallery">
 					<h1><i class="fas fa-camera"></i> Space Gallery</h1>
-					<p class="gallery-intro">Explore beautiful images from NASA's Astronomy Picture of the Day and
-						asteroid
-						missions!</p>
+					<p class="gallery-intro">Explore images from NASA's image gallery!</p>
 
 					<div id="image-grid" class="image-grid">
 						<div class="loading-message">
@@ -203,9 +185,6 @@
 						<h3><i class="fas fa-info-circle"></i> About These Images</h3>
 						<p>
 							These images come from NASA's Astronomy Picture of the Day (APOD) API.
-							Each day, NASA features a different image or photograph of our fascinating universe.
-							The images showcase asteroids, planets, galaxies, and other cosmic wonders!
-						</p>
 					</div>
 				</div>
 			</div>

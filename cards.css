@@ -164,8 +164,8 @@
 }
 
 .asteroid-card.selected {
-	border: 5px solid  var(--pastel-purple);
-	background: linear-gradient(135deg, #56095b 0%, #56095b 100%);
+	border: 5px solid  var(--text-dark);
+	background: linear-gradient(135deg, #254060e8 0%, #004ed577 100%);
     
 }
 

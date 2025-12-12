@@ -99,9 +99,8 @@ input:checked + .slider:before {
 #orbit-canvas {
 	aspect-ratio: 1 / 1;
 	width: min(100%, 75dvh);
+	min-width: 270px;
 	background: #001b39;
-	margin-left: auto;
-	margin-right: auto;
 	margin-top: 0;
 	position: relative;
 	height: auto;
@@ -109,7 +108,7 @@ input:checked + .slider:before {
 	border-radius:0 0 8px 8px;
 	/* border-radius: 10%; */
 	margin-bottom: 5px;
-	
+	justify-self: center;
 }
 
 #earth-pic {
@@ -119,6 +118,26 @@ input:checked + .slider:before {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+}
+
+
+.orbit-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: rotate 12s linear infinite;
+}
+.orbit-text span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0 0;
+	color: white;
+}
+/* Rotate whole ring */
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
 }
 
 .asteroid {
@@ -138,6 +157,7 @@ input:checked + .slider:before {
 	margin-top: 1rem;
 	justify-self: center;
 	width: min(100%, 75dvh);
+	min-width: 270px;
     background: #001b39;
     border-radius: 8px 8px 0px 0px;
 	padding: 1rem 1rem 0 1rem;
